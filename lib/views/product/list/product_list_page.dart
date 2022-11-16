@@ -24,6 +24,7 @@ class ProductListPage extends ConsumerWidget {
       body: ListView.builder(
         itemCount: pm.length,
         itemBuilder: (context, index) => ListTile(
+          key: ValueKey(pm[index].id),
           onTap: (){},
           leading: Icon(Icons.account_balance_wallet),
           title: Text("${pm[index].name}", style: TextStyle(fontWeight: FontWeight.bold)),
