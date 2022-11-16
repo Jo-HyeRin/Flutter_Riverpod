@@ -21,4 +21,9 @@ class ProductListViewStore extends StateNotifier<List<Product>>{
     state = [...state, productRespDto];
   }
 
+  void removeProduct(int id) {
+    // id가 같지 않은 것을 걸러내고 리스트를 만들어주면 된다.
+    state = state.where((product) => product.id != id).toList();
+  }
+
 }
