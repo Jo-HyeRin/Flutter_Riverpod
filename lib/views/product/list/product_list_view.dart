@@ -28,11 +28,10 @@ class ProductListView extends ConsumerWidget {
         itemBuilder: (context, index) => ListTile(
           key: ValueKey(pm[index].id),
           onTap: (){
-            if(pm[index].id != 4){
               pc.deleteById(pm[index].id);
-            }else{
-              showCupertinoDialog(context: context, builder: (context) => MyAlertDialog(msg: "삭제실패"));
-            }
+          },
+          onLongPress: (){
+            pc.updateById(pm[index].id, Product(pm[index].id, pm[index].name, 20000));
           },
           leading: Icon(Icons.account_balance_wallet),
           title: Text("${pm[index].name}", style: TextStyle(fontWeight: FontWeight.bold)),
