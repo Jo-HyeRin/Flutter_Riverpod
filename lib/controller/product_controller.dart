@@ -19,4 +19,10 @@ class ProductController {
     List<Product> productList = _ref.read(productHttpRepository).findAll();
     _ref.read(productListViewStore.notifier).onRefresh(productList);
   }
+
+  void insert(Product productReqDto){
+    Product productRespDto = _ref.read(productHttpRepository).insert(productReqDto);
+    _ref.read(productListViewStore.notifier).addProduct(productRespDto);
+  }
+
 }

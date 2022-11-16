@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final productListViewStore =
 StateNotifierProvider<ProductListViewStore, List<Product>>((ref){
-  return ProductListViewStore(ref.read(productHttpRepository).findAll());
+  List<Product> productList = ref.read(productHttpRepository).findAll();
+  return ProductListViewStore(productList);
 });
 
 // 해당 화면에 필요한 모든 데이터는 이 뷰 모델에 있어야 한다.
@@ -14,6 +15,10 @@ class ProductListViewStore extends StateNotifier<List<Product>>{
   // 데이터 갱신
   void onRefresh(List<Product> products){
     state = products;
+  }
+
+  void addProduct(Product productRespDto) {
+    state = [...state, productRespDto];
   }
 
 }
