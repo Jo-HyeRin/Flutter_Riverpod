@@ -18,11 +18,14 @@ class ProductListViewStore extends StateNotifier<List<Product>>{
   }
 
   void addProduct(Product productRespDto) {
+    // 깊은 복사로 새 객체 생성 = 레퍼런트 주소 달라짐
+    // 변경된 값이 아니라 변경된 레퍼런트 주소를 통해 변경 감지를 위해 깊은 복사가 필요.
+    // 변경 감지 후 둘을 비교해 변경된 객체를 적용하게 된다.
     state = [...state, productRespDto];
   }
 
   void removeProduct(int id) {
-    // id가 같지 않은 것을 걸러내고 리스트를 만들어주면 된다.
+    // 깊은 복사로 id가 같지 않은 것을 걸러내고 새 리스트를 만들어주면 된다.
     state = state.where((product) => product.id != id).toList();
   }
 

@@ -29,6 +29,8 @@ class ProductController {
     int result = _ref.read(productHttpRepository).deleteById(id);
     if(result == 1){
       _ref.read(productListViewStore.notifier).removeProduct(id);
+    }else{
+
     }
   }
 

@@ -1,4 +1,4 @@
-import 'package:data_app/views/product/list/product_list_page.dart';
+import 'package:data_app/views/product/list/product_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProductListPage(),
+      home: ProductListView(),
     );
   }
 }
