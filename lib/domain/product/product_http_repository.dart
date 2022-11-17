@@ -26,7 +26,6 @@ class ProductHttpRepository {
     return dataList.map((e) => Product.fromJson(e)).toList();
   }
 
-  // Product에 name, price만 들어온 상태라고 생각해보자.
   Future<Product> insert(Product productReqDto) async {
     String body = jsonEncode(productReqDto.toJson());
     Response response =
@@ -40,19 +39,12 @@ class ProductHttpRepository {
     return jsonDecode(response.body)['code']; // 1 성공
   }
 
-  Product updateById(int id, Product productDto){
-    // http 통신 코드
-    final list = [].map((product){
-      if(product.id == id){
-        product = productDto;
-        return product;
-      }else{
-        return product;
-      }
-    }).toList();
-
-    productDto.id = id;
-    return productDto;
+  Future<Product> updateById(int id, Product productReqDto) async {
+    String body = jsonEncode(productReqDto.toJson());
+    Response response =
+        await _ref.read(httpConnector).put("/api/product/${id}", body);
+    Product product = Product.fromJson(jsonDecode(response.body)["data"]);
+    return product;
   }
 
 }

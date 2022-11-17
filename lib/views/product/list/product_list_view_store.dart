@@ -31,7 +31,7 @@ class ProductListViewStore extends StateNotifier<List<Product>>{
   }
 
   void removeProduct(int id) {
-    // 깊은 복사로 id가 같지 않은 것을 걸러내고 새 리스트를 만들어주면 된다.
+    // 깊은 복사로 id가 같지 않은 데이터만으로 새 리스트 생성.
     state = state.where((product) => product.id != id).toList();
   }
 

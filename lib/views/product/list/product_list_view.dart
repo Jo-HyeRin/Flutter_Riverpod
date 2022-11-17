@@ -39,7 +39,7 @@ class ProductListView extends ConsumerWidget {
             pc.deleteById(pm[index].id);
           },
           onLongPress: (){
-            //pc.updateById(pm[index].id, Product(pm[index].id, pm[index].name, 20000));
+            pc.updateById(pm[index].id, Product(id:0, name:'호박', price:20000));
           },
           leading: Icon(Icons.account_balance_wallet),
           title: Text("${pm[index].name}", style: TextStyle(fontWeight: FontWeight.bold)),
