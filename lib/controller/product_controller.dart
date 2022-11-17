@@ -17,12 +17,12 @@ final productController = Provider<ProductController>((ref){
  */
 class ProductController {
 
-  final context = navigatorKey.currentContext!;
+  final context = navigatorKey.currentContext!; // main에 선언한 글로벌 키
   final Ref _ref;
   ProductController(this._ref);
 
-  void findAll(){
-    List<Product> productList = _ref.read(productHttpRepository).findAll();
+  void findAll() async {
+    List<Product> productList = await _ref.read(productHttpRepository).findAll();
     _ref.read(productListViewStore.notifier).onRefresh(productList);
   }
 
@@ -46,7 +46,5 @@ class ProductController {
     Product productRespDto = _ref.read(productHttpRepository).updateById(id, productReqDto);
     _ref.read(productListViewStore.notifier).updateProduct(id, productRespDto);
   }
-
-
 
 }

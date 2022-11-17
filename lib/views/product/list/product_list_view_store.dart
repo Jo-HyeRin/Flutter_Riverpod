@@ -4,17 +4,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final productListViewStore =
 StateNotifierProvider<ProductListViewStore, List<Product>>((ref){
-  List<Product> productList = ref.read(productHttpRepository).findAll();
-  return ProductListViewStore(productList);
+  // ref.read(productHttpRepository).findAll(); // await/async 가 필요하므로 여기서 이용 불가능.
+  return ProductListViewStore([],ref)..initViewModel(); // 1. 초기화는 빈 배열을 넣고 ref를 넣어 창고에 접근가능하게 한다.
 });
 
 // 해당 화면에 필요한 모든 데이터는 이 뷰 모델에 있어야 한다.
 class ProductListViewStore extends StateNotifier<List<Product>>{
-  ProductListViewStore(super.state);
+  Ref _ref;
+  ProductListViewStore(super.state, this._ref); // 2. 상태에는 빈배열 넣고(ProductHttpRepository 사용하기 위해), ref도 넣어준다.
+
+  void initViewModel() async {
+    List<Product> productList = await _ref.read(productHttpRepository).findAll();
+    state = productList;
+  }
 
   // 데이터 갱신
-  void onRefresh(List<Product> products){
-    state = products;
+  void onRefresh(List<Product> productList){
+    state = productList;
   }
 
   void addProduct(Product productRespDto) {

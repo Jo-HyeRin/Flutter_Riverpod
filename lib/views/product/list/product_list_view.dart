@@ -19,7 +19,8 @@ class ProductListView extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){
-          pc.insert(Product(4,'호박',2000));
+          //pc.findAll();
+          //pc.insert(Product(4,'호박',2000));
         },
       ),
       appBar: AppBar(title: Text("product_list_page")),
@@ -28,10 +29,10 @@ class ProductListView extends ConsumerWidget {
         itemBuilder: (context, index) => ListTile(
           key: ValueKey(pm[index].id),
           onTap: (){
-              pc.deleteById(pm[index].id);
+              //pc.deleteById(pm[index].id);
           },
           onLongPress: (){
-            pc.updateById(pm[index].id, Product(pm[index].id, pm[index].name, 20000));
+            //pc.updateById(pm[index].id, Product(pm[index].id, pm[index].name, 20000));
           },
           leading: Icon(Icons.account_balance_wallet),
           title: Text("${pm[index].name}", style: TextStyle(fontWeight: FontWeight.bold)),
