@@ -19,7 +19,7 @@ class ProductListView extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){
-          //pc.insert(Product(4,'호박',2000));
+          pc.insert(Product(id:4, name:'호박', price:6000));
         },
       ),
       appBar: AppBar(title: Text("product_list_page")),

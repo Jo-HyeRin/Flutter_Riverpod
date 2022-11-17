@@ -26,8 +26,8 @@ class ProductController {
     _ref.read(productListViewStore.notifier).onRefresh(productList);
   }
 
-  void insert(Product productReqDto){
-    Product productRespDto = _ref.read(productHttpRepository).insert(productReqDto);
+  void insert(Product productReqDto) async {
+    Product productRespDto = await _ref.read(productHttpRepository).insert(productReqDto);
     _ref.read(productListViewStore.notifier).addProduct(productRespDto);
   }
 

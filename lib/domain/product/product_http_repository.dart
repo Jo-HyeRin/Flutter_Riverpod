@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:data_app/domain/http_connector.dart';
 import 'package:data_app/domain/product/product.dart';
-import 'package:data_app/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 
@@ -28,9 +27,11 @@ class ProductHttpRepository {
   }
 
   // Product에 name, price만 들어온 상태라고 생각해보자.
-  Product insert(Product product){
-    // http 통신 코드 (product 전송)
-    product.id=4;
+  Future<Product> insert(Product productReqDto) async {
+    String body = jsonEncode(productReqDto.toJson());
+    Response response =
+    await _ref.read(httpConnector).post("/api/product", body);
+    Product product = Product.fromJson(jsonDecode(response.body)["data"]);
     return product;
   }
 
