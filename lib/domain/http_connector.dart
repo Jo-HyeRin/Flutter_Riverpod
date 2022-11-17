@@ -21,4 +21,17 @@ class HttpConnector {
     Response response = await _client.post(uri, body:body, headers:headers);
     return response;
   }
+
+  Future<Response> delete(String path) async {
+    Uri uri = Uri.parse("${host}${path}");
+    Response response = await _client.delete(uri);
+    return response;
+  }
+
+  Future<Response> put(String path, String body) async {
+    Uri uri = Uri.parse("${host}${path}");
+    Response response = await _client.put(uri, body:body, headers:headers);
+    return response;
+  }
+
 }

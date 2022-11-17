@@ -35,6 +35,11 @@ class ProductHttpRepository {
     return product;
   }
 
+  Future<int> deleteById(int id) async {
+    Response response = await _ref.read(httpConnector).delete("/api/product/${id}");
+    return jsonDecode(response.body)['code']; // 1 성공
+  }
+
   Product updateById(int id, Product productDto){
     // http 통신 코드
     final list = [].map((product){
@@ -48,17 +53,6 @@ class ProductHttpRepository {
 
     productDto.id = id;
     return productDto;
-  }
-
-  int deleteById(int id){
-    // http 통신 코드
-    final list = [].where((product)=>product.id!=id).toList();
-    if(id == 4){
-      return -1;
-    }else{
-      return 1;
-    }
-
   }
 
 }

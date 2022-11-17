@@ -1,6 +1,5 @@
 import 'package:data_app/controller/product_controller.dart';
 import 'package:data_app/domain/product/product.dart';
-import 'package:data_app/views/components/my_alert_dialog.dart';
 import 'package:data_app/views/product/list/product_list_view_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,32 +22,32 @@ class ProductListView extends ConsumerWidget {
         },
       ),
       appBar: AppBar(title: Text("product_list_page")),
-      body: _buildListView(pm),
+      body: _buildListView(pm, pc),
     );
   }
 
-  Widget _buildListView(List<Product> pm) {
+  Widget _buildListView(List<Product> pm, ProductController pc) {
 
     if(!(pm.length>0)){ // 0보다 크지 않다면 = 통신이 끝나지 않았다면
       return Center(child: Image.asset('assets/image/loading.gif'));
     }else{
-
+      return ListView.builder(
+        itemCount: pm.length,
+        itemBuilder: (context, index) => ListTile(
+          key: ValueKey(pm[index].id),
+          onTap: (){
+            pc.deleteById(pm[index].id);
+          },
+          onLongPress: (){
+            //pc.updateById(pm[index].id, Product(pm[index].id, pm[index].name, 20000));
+          },
+          leading: Icon(Icons.account_balance_wallet),
+          title: Text("${pm[index].name}", style: TextStyle(fontWeight: FontWeight.bold)),
+          subtitle: Text("${pm[index].price}"),
+        ),
+      );
     }
 
-    return ListView.builder(
-      itemCount: pm.length,
-      itemBuilder: (context, index) => ListTile(
-        key: ValueKey(pm[index].id),
-        onTap: (){
-            //pc.deleteById(pm[index].id);
-        },
-        onLongPress: (){
-          //pc.updateById(pm[index].id, Product(pm[index].id, pm[index].name, 20000));
-        },
-        leading: Icon(Icons.account_balance_wallet),
-        title: Text("${pm[index].name}", style: TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text("${pm[index].price}"),
-      ),
-    );
+
   }
 }

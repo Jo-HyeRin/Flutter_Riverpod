@@ -31,12 +31,10 @@ class ProductController {
     _ref.read(productListViewStore.notifier).addProduct(productRespDto);
   }
 
-  void deleteById(int id) {
-    if(id != 4){
-      int result = _ref.read(productHttpRepository).deleteById(id);
-      if(result == 1){
-        _ref.read(productListViewStore.notifier).removeProduct(id);
-      }
+  void deleteById(int id) async {
+    int code = await _ref.read(productHttpRepository).deleteById(id);
+    if(code == 1){
+      _ref.read(productListViewStore.notifier).removeProduct(id);
     }else{
       showCupertinoDialog(context: context, builder: (context) => MyAlertDialog(msg: "삭제실패"));
     }
